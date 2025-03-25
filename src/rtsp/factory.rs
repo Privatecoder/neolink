@@ -293,6 +293,8 @@ pub(super) async fn make_factory(
         client_tx.blocking_send(ClientMsg::NewClient { element, reply })?;
 
         let element = new_element.blocking_recv()?;
+        element.set_property("latency", &200u32).ok();
+
         Ok(Some(element))
     })
     .await?;
